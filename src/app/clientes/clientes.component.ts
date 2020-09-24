@@ -1,3 +1,4 @@
+import { ClienteService } from './cliente.service';
 import { CLIENTES } from './clientes.json';
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
@@ -11,10 +12,10 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
 
-  constructor() { }
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit(): void {
-    this.clientes = CLIENTES;
+    this.clientes = this.clienteService.getClientes();
   }
 
 }
