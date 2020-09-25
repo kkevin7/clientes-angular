@@ -23,7 +23,18 @@ export class ClienteService {
   }
 
   create(cliente: Cliente) : Observable<Cliente>{
-    return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders} )
+    return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders} ).pipe(
+      catchError(e => {
+        this.router.navigate(['/clientes']);
+        console.log(e.error.mensaje);
+        Swal.fire({
+          icon: 'error',
+          title: e.error.mensaje,
+          text: e.error.error,
+        });
+        return throwError(e);
+      })
+    )
   }
 
   getCliente(id): Observable<Cliente>{
@@ -33,8 +44,8 @@ export class ClienteService {
         console.log(e.error.mensaje);
         Swal.fire({
           icon: 'error',
-          title: 'Error al Editar',
-          text: e.error.mensaje,
+          title: e.error.mensaje,
+          text: e.error.error,
         });
         return throwError(e);
       })
@@ -42,11 +53,33 @@ export class ClienteService {
   }
 
   update(cliente: Cliente): Observable<Cliente>{
-    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders});
+    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+        this.router.navigate(['/clientes']);
+        console.log(e.error.mensaje);
+        Swal.fire({
+          icon: 'error',
+          title: e.error.mensaje,
+          text: e.error.error,
+        });
+        return throwError(e);
+      })
+    );
   }
 
   delete(id: number): Observable<Cliente>{
-    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders});
+    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+        this.router.navigate(['/clientes']);
+        console.log(e.error.mensaje);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: e.error.mensaje,
+        });
+        return throwError(e);
+      })
+    );
   }
 
 }
