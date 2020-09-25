@@ -15,7 +15,6 @@ export class ClienteService {
   constructor(private http: HttpClient) { }
 
   getClientes(): Observable<Cliente[]> {
-    //return of(CLIENTES);
     return this.http.get(this.urlEndPoint).pipe(
       map(response => response as Cliente[])
     );
@@ -31,6 +30,10 @@ export class ClienteService {
 
   update(cliente: Cliente): Observable<Cliente>{
     return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders});
+  }
+
+  delete(id: number): Observable<Cliente>{
+    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders});
   }
 
 }
