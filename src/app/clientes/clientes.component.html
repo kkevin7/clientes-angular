@@ -3,7 +3,7 @@
     <div class="card-body">
       <h5 class="card-title">Listado de Clientes</h5>
 
-      <div class="my-2 text-left">
+      <div class="my-2 text-left print-hide">
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">Crear Cliente</button>
       </div>
       <div *ngIf="clientes?.length<=0">
@@ -19,8 +19,9 @@
             <th>apellido</th>
             <th>email</th>
             <th>fecha</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th class="print-hide">Editar</th>
+            <th class="print-hide">Eliminar</th>
+            <th class="print-hide">Pdf</th>
           </tr>
         </thead>
         <tbody>
@@ -30,11 +31,14 @@
             <td>{{cliente.apellido}}</td>
             <td>{{cliente.email}}</td>
             <td>{{cliente.createAt}}</td>
-            <td>
+            <td class="print-hide">
               <button type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary btn-sm">Editar</button>
             </td>
-            <td>
+            <td class="print-hide">
               <button type="button" (click)="delete(cliente)" class="btn btn-danger btn-sm">Eliminar</button>
+            </td>
+            <td class="print-hide">
+              <button type="button" (click)=" printPage()" class="btn btn-info btn-sm">Pdf</button>
             </td>
           </tr>
         </tbody>

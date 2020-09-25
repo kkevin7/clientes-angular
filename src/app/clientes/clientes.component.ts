@@ -21,6 +21,10 @@ export class ClientesComponent implements OnInit {
      );
   }
 
+  printPage() {
+    window.print();
+  }
+
   delete(cliente: Cliente): void{
     Swal.fire({
       title: 'Está seguro?',
