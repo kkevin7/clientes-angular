@@ -1,0 +1,145 @@
+<div class="card bg-dark text-white mt-2">
+  <div class="card-header">{{titulo}}</div>
+  <div class="card-body">
+
+    <form #alumnoForm="ngForm">
+
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.nombre" name="nombre" required minlength="4" #nombre="ngModel">
+          <div class="mt-2 alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              Nombre es requerido
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              Nombre debe tener al menos 4 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Apellido</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.apellidos" name="apellidos" required minlength="4" #apellidos="ngModel">
+          <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Carnet</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.carnet" name="carnet" required minlength="4" #carnet="ngModel">
+          <!-- <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Grado</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.grado.nombre" name="grado" required minlength="4" #grado="ngModel">
+
+        </div>
+      </div> -->
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Grado</label>
+        <div class="col-8">
+          <select class="form-control" [(ngModel)]="gradoSelected" name="grado" id="" (change)="capturar()">
+            <!-- <option value="0">Selecciona una opción</option> -->
+              <option [value]="grado.id" *ngFor="let grado of grados" >
+              {{grado.nombre}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Nombre de la Madre</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.nombreMadre" name="nombreMadre" required minlength="4" #nombreMadre="ngModel">
+          <!-- <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Nombre del Padre</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.nombrePadre" name="nombrePadre" required minlength="4" #nombrePadre="ngModel">
+          <!-- <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Edad</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.edad" name="edad" required  #edad="ngModel">
+          <!-- <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-form-label col-sm-2">Nota Final</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="alumno.notaFinal" name="notaFinal" required  #notaFinal="ngModel">
+          <!-- <div class="mt-2 alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+            <div *ngIf="apellidos.errors.required">
+              Apellido es requerido
+            </div>
+            <div *ngIf="apellidos.errors.minlength">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!alumno.id else elseBlock" [disabled]="!alumnoForm.form.valid">Crear</button>
+
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!alumnoForm.form.valid">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
